@@ -4,7 +4,6 @@ import io.github.eduardoconceicao90.produtosapi.ProdutoRepository;
 import io.github.eduardoconceicao90.produtosapi.model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -34,6 +33,15 @@ public class ProdutoController {
         produtoRepository.findById(id).map(produto -> {
                     produtoRepository.delete(produto);
                     return produto;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!"));
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable String id, @RequestBody Produto produto){
+        produtoRepository.findById(id).map(produtoExistente -> {
+                    produto.setId(produtoExistente.getId());
+                    produtoRepository.save(produto);
+                    return produtoExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!"));
     }
 
