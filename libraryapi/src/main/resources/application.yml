@@ -5,8 +5,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/library
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 12345
+    password: postgres
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     properties:
