@@ -2,6 +2,7 @@ package io.github.eduardoconceicao90.libraryapi.service;
 
 import io.github.eduardoconceicao90.libraryapi.model.Autor;
 import io.github.eduardoconceicao90.libraryapi.repository.AutorRepository;
+import io.github.eduardoconceicao90.libraryapi.validator.AutorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,10 @@ import java.util.UUID;
 public class AutorService {
 
     private final AutorRepository repository;
+    private final AutorValidator validator;
 
     public Autor salvar(Autor autor) {
+        validator.validar(autor);
         return repository.save(autor);
     }
 
@@ -23,7 +26,7 @@ public class AutorService {
         if(autor.getId() == null) {
             throw new IllegalArgumentException("O id do autor é obrigatório");
         }
-
+        validator.validar(autor);
         repository.save(autor);
     }
 

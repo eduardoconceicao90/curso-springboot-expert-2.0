@@ -1,7 +1,9 @@
 package io.github.eduardoconceicao90.libraryapi.controller;
 
+import io.github.eduardoconceicao90.libraryapi.exception.RegistroDuplicadoException;
 import io.github.eduardoconceicao90.libraryapi.model.Autor;
 import io.github.eduardoconceicao90.libraryapi.model.dto.AutorDTO;
+import io.github.eduardoconceicao90.libraryapi.model.dto.ErroResposta;
 import io.github.eduardoconceicao90.libraryapi.service.AutorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,10 +26,15 @@ public class AutorController {
 
     @PostMapping
     public ResponseEntity<Object> salvar(@RequestBody AutorDTO autorDTO) {
-        Autor autor = autorDTO.mapearParaAutor();
-        service.salvar(autor);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(autor.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        try {
+            Autor autor = autorDTO.mapearParaAutor();
+            service.salvar(autor);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(autor.getId()).toUri();
+            return ResponseEntity.created(location).build();
+        } catch (RegistroDuplicadoException e) {
+            var erroResposta = ErroResposta.conflito(e.getMessage());
+            return ResponseEntity.status(erroResposta.status()).body(erroResposta);
+        }
     }
 
     @GetMapping("{id}")
