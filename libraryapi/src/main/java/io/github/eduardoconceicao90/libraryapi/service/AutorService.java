@@ -1,7 +1,9 @@
 package io.github.eduardoconceicao90.libraryapi.service;
 
+import io.github.eduardoconceicao90.libraryapi.exception.OperacaoNaoPermitidaException;
 import io.github.eduardoconceicao90.libraryapi.model.Autor;
 import io.github.eduardoconceicao90.libraryapi.repository.AutorRepository;
+import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
 import io.github.eduardoconceicao90.libraryapi.validator.AutorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class AutorService {
 
     private final AutorRepository repository;
+    private final LivroRepository livroRepository;
     private final AutorValidator validator;
 
     public Autor salvar(Autor autor) {
@@ -35,6 +38,9 @@ public class AutorService {
     }
 
     public void deletar(Autor autor) {
+        if(possuiLivrosAssociados(autor)) {
+            throw new OperacaoNaoPermitidaException("Não é possível deletar o autor, pois ele possui livros associados.");
+        }
         repository.delete(autor);
     }
 
@@ -52,6 +58,10 @@ public class AutorService {
         }
 
         return repository.findAll();
+    }
+
+    public boolean possuiLivrosAssociados(Autor autor){
+        return livroRepository.existsByAutor(autor);
     }
 
 }
