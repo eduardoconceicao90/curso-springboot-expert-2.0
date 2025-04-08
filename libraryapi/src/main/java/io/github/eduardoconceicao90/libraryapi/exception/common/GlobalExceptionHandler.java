@@ -1,5 +1,7 @@
 package io.github.eduardoconceicao90.libraryapi.exception.common;
 
+import io.github.eduardoconceicao90.libraryapi.exception.OperacaoNaoPermitidaException;
+import io.github.eduardoconceicao90.libraryapi.exception.RegistroDuplicadoException;
 import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroCampo;
 import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroResposta;
 import org.springframework.http.HttpStatus;
@@ -25,4 +27,23 @@ public class GlobalExceptionHandler {
                             .collect(Collectors.toList());
         return new ErroResposta(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validação.", listaDeErros);
     }
+
+    @ExceptionHandler(RegistroDuplicadoException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErroResposta handleRegistroDuplicadoException(RegistroDuplicadoException ex) {
+        return ErroResposta.conflito(ex.getMessage());
+    }
+
+    @ExceptionHandler(OperacaoNaoPermitidaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta handleOperacaoNaoPermitidaException(OperacaoNaoPermitidaException ex) {
+        return ErroResposta.respostaPadrao(ex.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErroResposta handleErrosNaoTratadosException(OperacaoNaoPermitidaException ex) {
+        return new ErroResposta(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Erro inesperado! Entre em contato com desenvolvedor.", List.of());
+    }
+
 }

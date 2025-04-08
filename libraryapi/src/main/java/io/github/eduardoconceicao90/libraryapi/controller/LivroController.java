@@ -1,8 +1,6 @@
 package io.github.eduardoconceicao90.libraryapi.controller;
 
 import io.github.eduardoconceicao90.libraryapi.controller.mapper.LivroMapper;
-import io.github.eduardoconceicao90.libraryapi.exception.RegistroDuplicadoException;
-import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroResposta;
 import io.github.eduardoconceicao90.libraryapi.model.Livro;
 import io.github.eduardoconceicao90.libraryapi.model.dto.CadastroLivroDTO;
 import io.github.eduardoconceicao90.libraryapi.service.LivroSerivce;
@@ -23,16 +21,11 @@ public class LivroController implements GenericController {
     private final LivroSerivce service;
     private final LivroMapper mapper;
 
-    public ResponseEntity<Object> salvar(@RequestBody @Valid CadastroLivroDTO livroDTO){
-        try {
-            Livro livro = mapper.toEntity(livroDTO);
-            service.salvar(livro);
-            URI location = gerarHeaderLocation(livro.getId());
-            return ResponseEntity.created(location).build();
-        } catch (RegistroDuplicadoException e) {
-            var erroResposta = ErroResposta.conflito(e.getMessage());
-            return ResponseEntity.status(erroResposta.status()).body(erroResposta);
-        }
+    public ResponseEntity<Void> salvar(@RequestBody @Valid CadastroLivroDTO livroDTO){
+        Livro livro = mapper.toEntity(livroDTO);
+        service.salvar(livro);
+        URI location = gerarHeaderLocation(livro.getId());
+        return ResponseEntity.created(location).build();
     }
 
 }
