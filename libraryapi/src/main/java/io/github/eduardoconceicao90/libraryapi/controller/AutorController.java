@@ -4,11 +4,10 @@ import io.github.eduardoconceicao90.libraryapi.exception.OperacaoNaoPermitidaExc
 import io.github.eduardoconceicao90.libraryapi.exception.RegistroDuplicadoException;
 import io.github.eduardoconceicao90.libraryapi.model.Autor;
 import io.github.eduardoconceicao90.libraryapi.model.dto.AutorDTO;
-import io.github.eduardoconceicao90.libraryapi.model.dto.ErroResposta;
+import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroResposta;
 import io.github.eduardoconceicao90.libraryapi.service.AutorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

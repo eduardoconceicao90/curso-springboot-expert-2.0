@@ -1,4 +1,4 @@
-package io.github.eduardoconceicao90.libraryapi.model.dto;
+package io.github.eduardoconceicao90.libraryapi.exception.dto;
 
 import org.springframework.http.HttpStatus;
 
