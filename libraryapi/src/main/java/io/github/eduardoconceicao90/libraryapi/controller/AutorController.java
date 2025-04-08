@@ -6,6 +6,7 @@ import io.github.eduardoconceicao90.libraryapi.model.Autor;
 import io.github.eduardoconceicao90.libraryapi.model.dto.AutorDTO;
 import io.github.eduardoconceicao90.libraryapi.model.dto.ErroResposta;
 import io.github.eduardoconceicao90.libraryapi.service.AutorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AutorController {
     private final AutorService service;
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody AutorDTO autorDTO) {
+    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO autorDTO) {
         try {
             Autor autor = autorDTO.mapearParaAutor();
             service.salvar(autor);
