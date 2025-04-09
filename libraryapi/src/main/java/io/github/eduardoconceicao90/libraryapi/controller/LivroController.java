@@ -4,7 +4,7 @@ import io.github.eduardoconceicao90.libraryapi.controller.mapper.LivroMapper;
 import io.github.eduardoconceicao90.libraryapi.model.Livro;
 import io.github.eduardoconceicao90.libraryapi.model.dto.CadastroLivroDTO;
 import io.github.eduardoconceicao90.libraryapi.model.dto.ResultadoPesquisaLivroDTO;
-import io.github.eduardoconceicao90.libraryapi.service.LivroSerivce;
+import io.github.eduardoconceicao90.libraryapi.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequestMapping("livros")
 public class LivroController implements GenericController {
 
-    private final LivroSerivce service;
+    private final LivroService service;
     private final LivroMapper mapper;
 
     @PostMapping

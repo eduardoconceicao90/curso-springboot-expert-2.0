@@ -5,6 +5,7 @@ import io.github.eduardoconceicao90.libraryapi.model.Livro;
 import io.github.eduardoconceicao90.libraryapi.model.enums.GeneroLivro;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface LivroRepository extends JpaRepository<Livro, UUID> {
+public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecificationExecutor<Livro> {
 
     /* Query Method */
 
