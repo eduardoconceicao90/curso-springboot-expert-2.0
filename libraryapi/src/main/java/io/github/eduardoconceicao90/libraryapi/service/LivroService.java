@@ -57,4 +57,11 @@ public class LivroService {
         return repository.findAll(specs);
     }
 
+    public void atualizar(Livro livro) {
+        if(livro.getId() == null) {
+            throw new IllegalArgumentException("O id do livro é obrigatório");
+        }
+        repository.save(livro);
+    }
+
 }

@@ -36,9 +36,7 @@ public class AutorController implements GenericController {
         return service.obterPorId(UUID.fromString(id)).map(autor -> {
             AutorDTO autorDTO = mapper.toDTO(autor);
             return ResponseEntity.ok(autorDTO);
-        }).orElseGet(() -> {
-            return ResponseEntity.notFound().build();
-        });
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("{id}")
