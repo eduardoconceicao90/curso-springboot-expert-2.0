@@ -2,6 +2,8 @@ package io.github.eduardoconceicao90.libraryapi.specification;
 
 import io.github.eduardoconceicao90.libraryapi.model.Livro;
 import io.github.eduardoconceicao90.libraryapi.model.enums.GeneroLivro;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class LivroSpecs {
@@ -24,6 +26,14 @@ public class LivroSpecs {
                 cb.equal(cb.function(
                         "to_char", String.class, root.get("dataPublicacao"), cb.literal("YYYY")
                 ), anoPublicacao.toString());
+    }
+
+    public static Specification<Livro> nomeAutorLike(String nome) {
+        return (root, query, cb) -> {
+            // return cb.like(cb.upper(root.get("nome").get("nome")), "%" + nome.toUpperCase() + "%");
+            Join<Object, Object> joinAutor = root.join("autor", JoinType.INNER);
+            return cb.like(cb.upper(joinAutor.get("nome")), "%" + nome.toUpperCase() + "%");
+        };
     }
 
 }
