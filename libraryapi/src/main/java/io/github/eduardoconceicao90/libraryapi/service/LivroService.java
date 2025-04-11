@@ -5,10 +5,12 @@ import io.github.eduardoconceicao90.libraryapi.model.enums.GeneroLivro;
 import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
 import io.github.eduardoconceicao90.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,8 +36,11 @@ public class LivroService {
         repository.delete(livro);
     }
 
-    public List<Livro> pesquisa(String isbn, String titulo, String nomeAutor, GeneroLivro genero, Integer anoPublicacao){
-        Specification<Livro> specs = Specification.where((root, query, cb) -> cb.conjunction());
+    public Page<Livro> pesquisa(String isbn, String titulo, String nomeAutor, GeneroLivro genero,
+                                Integer anoPublicacao, Integer pagina, Integer tamanho) {
+        Specification<Livro> specs = Specification.where(
+                (root, query, cb) -> cb.conjunction()
+        );
 
         if (isbn != null) {
             specs = specs.and(isbnEqual(isbn));
@@ -57,7 +62,8 @@ public class LivroService {
             specs = specs.and(nomeAutorLike(nomeAutor));
         }
 
-        return repository.findAll(specs);
+        Pageable pageRequest = PageRequest.of(pagina, tamanho);
+        return repository.findAll(specs, pageRequest);
     }
 
     public void atualizar(Livro livro) {
