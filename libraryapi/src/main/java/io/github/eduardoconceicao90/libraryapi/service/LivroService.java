@@ -3,6 +3,7 @@ package io.github.eduardoconceicao90.libraryapi.service;
 import io.github.eduardoconceicao90.libraryapi.model.Livro;
 import io.github.eduardoconceicao90.libraryapi.model.enums.GeneroLivro;
 import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
+import io.github.eduardoconceicao90.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ import static io.github.eduardoconceicao90.libraryapi.specification.LivroSpecs.*
 public class LivroService {
 
     private final LivroRepository repository;
+    private final LivroValidator livroValidator;
 
     public Livro salvar(Livro livro) {
+        livroValidator.validar(livro);
         return repository.save(livro);
     }
 
@@ -61,6 +64,7 @@ public class LivroService {
         if(livro.getId() == null) {
             throw new IllegalArgumentException("O id do livro é obrigatório");
         }
+        livroValidator.validar(livro);
         repository.save(livro);
     }
 
