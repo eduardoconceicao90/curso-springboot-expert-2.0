@@ -1,5 +1,6 @@
 package io.github.eduardoconceicao90.libraryapi.exception.common;
 
+import io.github.eduardoconceicao90.libraryapi.exception.CampoInvalidoException;
 import io.github.eduardoconceicao90.libraryapi.exception.OperacaoNaoPermitidaException;
 import io.github.eduardoconceicao90.libraryapi.exception.RegistroDuplicadoException;
 import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroCampo;
@@ -38,6 +39,16 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErroResposta handleOperacaoNaoPermitidaException(OperacaoNaoPermitidaException ex) {
         return ErroResposta.respostaPadrao(ex.getMessage());
+    }
+
+    @ExceptionHandler(CampoInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErroResposta handleCampoInvalidoException(CampoInvalidoException ex) {
+        return new ErroResposta(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Erro de validação.",
+                List.of(new ErroCampo(ex.getCampo(), ex.getMessage()))
+        );
     }
 
     @ExceptionHandler(RuntimeException.class)
