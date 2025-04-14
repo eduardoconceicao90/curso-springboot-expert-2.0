@@ -6,6 +6,7 @@ import io.github.eduardoconceicao90.libraryapi.exception.RegistroDuplicadoExcept
 import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroCampo;
 import io.github.eduardoconceicao90.libraryapi.exception.dto.ErroResposta;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,6 +40,16 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErroResposta handleOperacaoNaoPermitidaException(OperacaoNaoPermitidaException ex) {
         return ErroResposta.respostaPadrao(ex.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErroResposta handleAccessDeniedException(AccessDeniedException ex) {
+        return new ErroResposta(
+                HttpStatus.FORBIDDEN.value(),
+                "Acesso negado.",
+                List.of()
+        );
     }
 
     @ExceptionHandler(CampoInvalidoException.class)
