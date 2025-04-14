@@ -4,6 +4,7 @@ import io.github.eduardoconceicao90.libraryapi.model.Livro;
 import io.github.eduardoconceicao90.libraryapi.model.Usuario;
 import io.github.eduardoconceicao90.libraryapi.model.enums.GeneroLivro;
 import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
+import io.github.eduardoconceicao90.libraryapi.security.SecurityService;
 import io.github.eduardoconceicao90.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

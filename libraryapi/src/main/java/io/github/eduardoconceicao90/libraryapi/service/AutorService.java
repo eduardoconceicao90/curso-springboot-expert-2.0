@@ -5,6 +5,7 @@ import io.github.eduardoconceicao90.libraryapi.model.Autor;
 import io.github.eduardoconceicao90.libraryapi.model.Usuario;
 import io.github.eduardoconceicao90.libraryapi.repository.AutorRepository;
 import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
+import io.github.eduardoconceicao90.libraryapi.security.SecurityService;
 import io.github.eduardoconceicao90.libraryapi.validator.AutorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;

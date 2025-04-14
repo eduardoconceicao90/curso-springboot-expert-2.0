@@ -1,6 +1,7 @@
-package io.github.eduardoconceicao90.libraryapi.service;
+package io.github.eduardoconceicao90.libraryapi.security;
 
 import io.github.eduardoconceicao90.libraryapi.model.Usuario;
+import io.github.eduardoconceicao90.libraryapi.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
