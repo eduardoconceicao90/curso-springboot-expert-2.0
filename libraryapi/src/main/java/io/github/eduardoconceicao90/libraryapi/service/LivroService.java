@@ -1,6 +1,7 @@
 package io.github.eduardoconceicao90.libraryapi.service;
 
 import io.github.eduardoconceicao90.libraryapi.model.Livro;
+import io.github.eduardoconceicao90.libraryapi.model.Usuario;
 import io.github.eduardoconceicao90.libraryapi.model.enums.GeneroLivro;
 import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
 import io.github.eduardoconceicao90.libraryapi.validator.LivroValidator;
@@ -22,9 +23,12 @@ public class LivroService {
 
     private final LivroRepository repository;
     private final LivroValidator livroValidator;
+    private final SecurityService securityService;
 
     public Livro salvar(Livro livro) {
         livroValidator.validar(livro);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        livro.setUsuario(usuario);
         return repository.save(livro);
     }
 

@@ -2,6 +2,7 @@ package io.github.eduardoconceicao90.libraryapi.service;
 
 import io.github.eduardoconceicao90.libraryapi.exception.OperacaoNaoPermitidaException;
 import io.github.eduardoconceicao90.libraryapi.model.Autor;
+import io.github.eduardoconceicao90.libraryapi.model.Usuario;
 import io.github.eduardoconceicao90.libraryapi.repository.AutorRepository;
 import io.github.eduardoconceicao90.libraryapi.repository.LivroRepository;
 import io.github.eduardoconceicao90.libraryapi.validator.AutorValidator;
@@ -21,9 +22,12 @@ public class AutorService {
     private final AutorRepository repository;
     private final LivroRepository livroRepository;
     private final AutorValidator validator;
+    private final SecurityService securityService;
 
     public Autor salvar(Autor autor) {
         validator.validar(autor);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        autor.setUsuario(usuario);
         return repository.save(autor);
     }
 
