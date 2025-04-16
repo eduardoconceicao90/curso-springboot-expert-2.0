@@ -26,5 +26,6 @@ CREATE TABLE usuario(
 	id UUID NOT NULL PRIMARY KEY,
 	login VARCHAR(20) NOT NULL UNIQUE,
 	senha VARCHAR(300) NOT NULL,
+	email VARCHAR(150) NOT NULL UNIQUE,
 	roles varchar[]
 );
