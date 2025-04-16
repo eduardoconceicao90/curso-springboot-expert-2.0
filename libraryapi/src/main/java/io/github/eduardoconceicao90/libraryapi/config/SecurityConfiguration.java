@@ -1,8 +1,6 @@
 package io.github.eduardoconceicao90.libraryapi.config;
 
-import io.github.eduardoconceicao90.libraryapi.security.CustomUserDetailsService;
 import io.github.eduardoconceicao90.libraryapi.security.LoginSocialSuccessHandler;
-import io.github.eduardoconceicao90.libraryapi.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,9 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -40,16 +35,6 @@ public class SecurityConfiguration {
                     oauth2.successHandler(successHandler);
                 })
                 .build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
-
-    //@Bean
-    public UserDetailsService userDetailsService(UsuarioService usuarioService) {
-        return new CustomUserDetailsService(usuarioService);
     }
 
     @Bean
