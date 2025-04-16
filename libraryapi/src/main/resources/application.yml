@@ -5,8 +5,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/library
     driver-class-name: org.postgresql.Driver
     username: postgres
-#    password: postgres
-    password: 12345
+    password: postgres
+#    password: 12345
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
