@@ -41,5 +41,13 @@ logging:
         web: DEBUG
         security: TRACE
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 9090
+
 springdoc:
   override-with-generic-response: false
