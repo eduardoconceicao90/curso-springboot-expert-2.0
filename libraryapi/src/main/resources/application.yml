@@ -1,21 +1,8 @@
 spring:
+  profiles:
+    active: production
   application:
     name: libraryapi
-  datasource:
-    url: jdbc:postgresql://localhost:5432/library
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-#    password: postgres
-    password: 12345
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-#      ddl-auto: update
-    ddl-auto: none
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
   security:
     oauth2:
       client:
