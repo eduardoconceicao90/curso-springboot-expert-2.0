@@ -1,4 +1,4 @@
-package io.github.eduardoconceicao90.produtosapi;
+package io.github.eduardoconceicao90.produtosapi.repository;
 
 import io.github.eduardoconceicao90.produtosapi.model.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;

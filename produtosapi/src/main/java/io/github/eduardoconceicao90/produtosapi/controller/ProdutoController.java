@@ -1,6 +1,6 @@
 package io.github.eduardoconceicao90.produtosapi.controller;
 
-import io.github.eduardoconceicao90.produtosapi.ProdutoRepository;
+import io.github.eduardoconceicao90.produtosapi.repository.ProdutoRepository;
 import io.github.eduardoconceicao90.produtosapi.model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
