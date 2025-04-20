@@ -23,10 +23,21 @@ spring:
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
+  output:
+    ansi:
+      enabled: ALWAYS
 
 logging:
   file:
     name: logs/libraryapi.log
+  level:
+    io.github.eduardoconceicao90: TRACE
+    root: WARN
+    org:
+      hibernate: INFO
+      springframework:
+        web: DEBUG
+        security: TRACE
 
 springdoc:
   override-with-generic-response: false
