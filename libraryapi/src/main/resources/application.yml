@@ -3,6 +3,16 @@ spring:
     active: production
   application:
     name: libraryapi
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/library} # Procura a variável de ambiente DATASOURCE_URL, caso não encontre, usa o valor padrão jdbc:postgresql://localhost:5432/library
+    username: ${DATASOURCE_USERNAME:postgres} # Procura a variável de ambiente DATASOURCE_USERNAME, caso não encontre, usa o valor padrão postgres
+    password: ${DATASOURCE_PASSWORD:12345} # Procura a variável de ambiente DATASOURCE_PASSWORD, caso não encontre, usa o valor padrão 12345 ou postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+    #      ddl-auto: update
+    ddl-auto: none
   security:
     oauth2:
       client:
