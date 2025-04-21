@@ -38,3 +38,21 @@ management:
 
 springdoc:
   override-with-generic-response: false
+
+# production
+---
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+# development
+---
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
