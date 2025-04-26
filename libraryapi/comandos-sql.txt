@@ -30,6 +30,20 @@ CREATE TABLE usuario(
 	roles varchar[]
 );
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+insert into usuario
+(id, login, senha, email, roles)
+values
+( uuid_generate_v4(), 'gerente', '$2a$12$u./yCEmhTdXjlyvV80sQKOfmO1Ab9HfI7HrOu6dzNa9hkdB5p9A6u
+', 'gerente@email.com', '{GERENTE}' );
+
+insert into client
+(id, client_id, client_secret, redirect_uri, scope)
+values
+( uuid_generate_v4(), 'client-production', '$2a$12$rQP5KtueNXW4oahOUBYQF.ax/GSucZlPr/ohMeC9ur747lEEnQIYu
+','http://localhost:8080/authorized' , 'GERENTE');
+
 CREATE TABLE client(
 	id UUID NOT NULL PRIMARY KEY,
 	client_id VARCHAR(150) NOT NULL,
